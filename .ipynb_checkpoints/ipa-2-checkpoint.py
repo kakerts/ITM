@@ -278,5 +278,5 @@ def scytale_decipher(message, shift):
         # to move to next array
         if flag == shift:
             flag = 0
-            # if flag reaches shift (all arrays are filled), flag=0 to wrap and start filling arrays from beginning
+            # if flag reaches shift (all arrays are filled), flag=0 to wrap and start filling  arrays from beginning
     return ''.join(new_message)
