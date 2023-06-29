@@ -138,13 +138,13 @@ def eta(first_stop, second_stop, route_map):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     current_stop = first_stop
     total_time = 0
-    
+
     while current_stop != second_stop:
-        current_leg = route_map[(current_stop, second_stop)]
-        #retrieves current_leg from the route_map
+    #loop continues until current_stop is equal to second_stop, (shuttle has arrived at the destination/second stop)
+        current_leg = route_map[current_stop]
+        #retrieves current_leg from the route_map.
         total_time += current_leg['travel_time_mins']
         #adds the travel time of the current leg to total_time
         current_stop = current_leg['next_stop']
         #updates the current_stop with the next stop from the current leg and loop continues until destination is reached
-  
     return total_time
