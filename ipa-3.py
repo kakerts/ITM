@@ -136,17 +136,43 @@ def eta(first_stop, second_stop, route_map):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    current_stop = first_stop  
-    #current_stop is first_stop
+    now = first_stop  
+    #current stop = first stop
+    legs = tuple(route_map.keys())  
+    #get list of legs in the route map
     total_time = 0  
-    #initial time is 0
+    #cumulative time
+    next_stop = None  
+    #checks if direct leg or next stop is found
 
-    while current_stop != second_stop:
-        current_leg = route_map[current_stop]  
-        #get information for the current_stop from route
-        total_time += current_leg['travel_time_mins']  
-        #add the travel time of the current leg to the total_time
-        current_stop = current_leg['next_stop']  
-        #updates the current_stop with the next stop from the current leg and loop continues until destination is reached
+    while now != second_stop:  
+        #loops until current stop is equal to second stop
+        if (now, second_stop) in route_map:
+            #if there is a direct leg between the current stop and the second stop, add its travel time to the total time
+            total_time += route_map[(now, second_stop)]['travel_time_mins']
+            break  
+            #loop is broken
+        else:
+            for leg in route_map:
+                if leg[0] == now:
+                    #find leg where starting stop matches current stop
+                    next_stop = leg[1]  
+                    #found next stop in current leg
+                    total_time += route_map[leg]['travel_time_mins']  
+                    #adds travel time of current leg to total time
+                    break
+
+            if next_stop is None:
+                #no direct leg or next stop is found
+                break
+
+            now = next_stop  
+            #update current stop to next stop
 
     return total_time
+
+#convert legs to route_map
+route_map = {leg: legs[leg] for leg in legs}
+
+    
+    
